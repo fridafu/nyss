@@ -36,6 +36,5 @@ namespace RX.Nyss.Web.Features.DataCollectors.Dto
         public int EpiYear { get; set; }
         public double ActiveDataCollectors { get; set; }
         public double TotalDataCollectors { get; set; }
-        public int Percentage { get; set; }
     }
 }

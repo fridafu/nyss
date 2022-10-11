@@ -39,7 +39,7 @@ namespace RX.Nyss.Web.Features.HeadSupervisors.Dto
                     .When(m => m.ProjectId.HasValue)
                     .WithMessageKey(ResultKey.Unauthorized);
                 RuleFor(m => m.OrganizationId)
-                    .MustAsync((model, _, t) => organizationService.ValidateAccessForAssigningOrganizationToUser(model.NationalSocietyId))
+                    .MustAsync((model, _, _) => organizationService.ValidateAccessForAssigningOrganizationToUser(model.NationalSocietyId))
                     .When(model => model.OrganizationId.HasValue)
                     .WithMessageKey(ResultKey.Organization.NoAccessToChangeOrganization);
                 RuleFor(m => m.ModemId)

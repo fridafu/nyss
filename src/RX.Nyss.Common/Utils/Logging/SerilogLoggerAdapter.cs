@@ -14,11 +14,7 @@ public class SerilogLoggerAdapter : ILoggerAdapter
 
     public void Debug(object obj) => _logger.Debug(obj?.ToString());
 
-    public void DebugFormat(string format, params object[] args) => _logger.Debug(string.Format(format, args));
-
     public void Info(object obj) => _logger.Information(obj?.ToString());
-
-    public void InfoFormat(string format, params object[] args) => _logger.Information(string.Format(format, args));
 
     public void Warn(object obj) => _logger.Warning(obj?.ToString());
 

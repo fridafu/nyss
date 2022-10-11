@@ -44,7 +44,6 @@ public static class FunctionHostBuilderExtensions
             clientFactoryBuilder.AddServiceBusClient(newConfiguration["SERVICEBUS_CONNECTIONSTRING"]);
         });
         builder.Services.AddHttpClient();
-        builder.Services.AddSingleton<IHttpPostClient, HttpPostClient>();
         builder.Services.AddLogging();
         builder.Services.AddScoped<IEmailService, EmailService>();
         builder.Services.AddScoped<IWhitelistValidator, WhitelistValidator>();

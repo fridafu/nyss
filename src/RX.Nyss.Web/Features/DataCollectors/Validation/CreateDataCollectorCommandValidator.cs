@@ -25,7 +25,7 @@ namespace RX.Nyss.Web.Features.DataCollectors.Validation
                 .MaximumLength(20);
 
             RuleFor(dc => dc.PhoneNumber)
-                .MustAsync(async (model, phoneNumber, t) => !await dataCollectorValidationService.PhoneNumberExists(phoneNumber))
+                .MustAsync(async (_, phoneNumber, _) => !await dataCollectorValidationService.PhoneNumberExists(phoneNumber))
                 .WithMessageKey(ResultKey.DataCollector.PhoneNumberAlreadyExists);
 
             RuleFor(dc => dc.AdditionalPhoneNumber)
@@ -35,7 +35,7 @@ namespace RX.Nyss.Web.Features.DataCollectors.Validation
                 .GreaterThan(0);
 
             RuleFor(dc => dc.SupervisorId)
-                .MustAsync(async (model, supervisorId, t) => await dataCollectorValidationService.IsAllowedToCreateForSupervisor(supervisorId))
+                .MustAsync(async (_, supervisorId, _) => await dataCollectorValidationService.IsAllowedToCreateForSupervisor(supervisorId))
                 .WithMessageKey(ResultKey.DataCollector.NotAllowedToSelectSupervisor);
 
             When(dc => dc.DataCollectorType == DataCollectorType.Human, () =>
@@ -58,7 +58,7 @@ namespace RX.Nyss.Web.Features.DataCollectors.Validation
                     && dcl.Longitude >= -180 && dcl.Longitude <= 180);
 
             RuleForEach(dc => dc.Locations)
-                .Must((model, location, t) => model.Locations.Count(l => l.VillageId == location.VillageId && l.ZoneId == location.ZoneId) == 1)
+                .Must((model, location, _) => model.Locations.Count(l => l.VillageId == location.VillageId && l.ZoneId == location.ZoneId) == 1)
                 .WithMessageKey(ResultKey.DataCollector.DuplicateLocation);
 
             RuleFor(dc => dc.LinkedToHeadSupervisor)

@@ -93,7 +93,7 @@ namespace RX.Nyss.Web.Configuration
             const string applicationInsightsEnvironmentVariable = "APPINSIGHTS_INSTRUMENTATIONKEY";
             var appInsightsInstrumentationKey = configuration[applicationInsightsEnvironmentVariable];
             GlobalLoggerConfiguration.ConfigureLogger(loggingOptions, appInsightsInstrumentationKey);
-            serviceCollection.AddSingleton(x => Log.Logger); // must be func, as the static logger is configured (changed reference) after DI registering
+            serviceCollection.AddSingleton(_ => Log.Logger); // must be func, as the static logger is configured (changed reference) after DI registering
             serviceCollection.AddSingleton<ILoggerAdapter, SerilogLoggerAdapter>();
 
             if (!string.IsNullOrEmpty(appInsightsInstrumentationKey))

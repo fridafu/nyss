@@ -153,7 +153,7 @@ namespace RX.Nyss.Data.MigrationApp
                 context.Users.AddRange(usersToCreate.Select(user =>
                 {
                     User nyssUser = null;
-                    var (roleName, id, name, phone, organizationId) = user;
+                    var (roleName, id, name, phone, _) = user;
 
                     switch (roleName)
                     {
@@ -265,7 +265,7 @@ namespace RX.Nyss.Data.MigrationApp
                 context.Users.AddRange(usersToCreate.Select(user =>
                 {
                     User nyssUser = null;
-                    var (roleName, id, name, phone, organizationId) = user;
+                    var (roleName, id, name, phone, _) = user;
 
                     switch (roleName)
                     {
@@ -374,7 +374,7 @@ namespace RX.Nyss.Data.MigrationApp
                 context.Users.AddRange(usersToCreate.Select(user =>
                 {
                     User nyssUser = null;
-                    var (roleName, id, name, phone, organizationId) = user;
+                    var (roleName, id, name, phone, _) = user;
 
                     switch (roleName)
                     {

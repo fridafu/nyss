@@ -7,10 +7,6 @@ public class ResultException : Exception
 {
     public Result Result { get; set; }
 
-    private ResultException()
-    {
-    }
-
     public ResultException(string messageKey, object messageData = null)
     {
         Result = Error(messageKey, messageData);
