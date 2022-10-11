@@ -6,11 +6,7 @@ public interface ILoggerAdapter
 {
     void Debug(object obj);
 
-    void DebugFormat(string format, params object[] args);
-
     void Info(object obj);
-
-    void InfoFormat(string format, params object[] args);
 
     void Warn(object obj);
 

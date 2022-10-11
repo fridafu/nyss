@@ -231,7 +231,7 @@ namespace RX.Nyss.Web.Features.AlertEvents
             var subtypes = eventTypes
                 .SelectMany(alertEventType =>
                         alertEventType.AlertEventSubtypes,
-                    (alertEventType, alertEventSubtype) => new AlertEventsSubtypeDto
+                    (_, alertEventSubtype) => new AlertEventsSubtypeDto
                     {
                         Id = alertEventSubtype.Id,
                         Name = alertEventSubtype.Name,

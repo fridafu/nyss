@@ -102,8 +102,6 @@ namespace RX.Nyss.Web.Features.Authentication
                 ManagerUser user => await GetNationalSocietyHomePage(user, HomePageType.ProjectList),
                 TechnicalAdvisorUser user => await GetNationalSocietyHomePage(user, HomePageType.ProjectList),
                 DataConsumerUser user => await GetNationalSocietyHomePage(user, HomePageType.NationalSociety),
-                GlobalCoordinatorUser user => GetRootHomePage(),
-                AdministratorUser user => GetRootHomePage(),
                 CoordinatorUser user => await GetNationalSocietyHomePage(user, HomePageType.NationalSociety),
                 HeadSupervisorUser user => await GetProjectHomePage(user),
                 _ => GetRootHomePage()

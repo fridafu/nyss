@@ -19,7 +19,6 @@ public interface IBlobConnectionStringOptions
 public interface IServiceConnectionStringOptions
 {
     string ServiceBus { get; set; }
-    string IotHubManagement { get; set; }
     string IotHubService { get; set; }
 }
 

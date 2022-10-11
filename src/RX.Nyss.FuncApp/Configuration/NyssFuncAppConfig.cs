@@ -30,7 +30,6 @@
 
             public class SendGridConfigOptions
             {
-                public string SendMailUrl { get; set; }
                 public string ApiKey { get; set; }
             }
         }

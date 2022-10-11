@@ -26,7 +26,7 @@ namespace RX.Nyss.Web.Features.DataCollectors.Validation
                 .MaximumLength(20);
 
             RuleFor(dc => dc.PhoneNumber)
-                .MustAsync(async (model, phoneNumber, t) => !await dataCollectorValidationService.PhoneNumberExistsToOther(model.Id, phoneNumber))
+                .MustAsync(async (model, phoneNumber, _) => !await dataCollectorValidationService.PhoneNumberExistsToOther(model.Id, phoneNumber))
                 .WithMessageKey(ResultKey.DataCollector.PhoneNumberAlreadyExists);
 
             RuleFor(dc => dc.AdditionalPhoneNumber)

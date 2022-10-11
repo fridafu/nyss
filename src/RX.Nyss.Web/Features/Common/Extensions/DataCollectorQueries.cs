@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using RX.Nyss.Data.Concepts;
 using RX.Nyss.Data.Models;
 using RX.Nyss.Web.Features.Common.Dto;
@@ -8,9 +7,6 @@ namespace RX.Nyss.Web.Features.Common.Extensions
 {
     public static class DataCollectorQueries
     {
-        public static IQueryable<DataCollector> FilterByNationalSociety(this IQueryable<DataCollector> dataCollectors, int nationalSocietyId) =>
-            dataCollectors.Where(dc => dc.Project.NationalSocietyId == nationalSocietyId);
-
         public static IQueryable<DataCollector> FilterByType(this IQueryable<DataCollector> dataCollectors, DataCollectorType? dataCollectorType) =>
             dataCollectorType switch
             {
@@ -34,9 +30,6 @@ namespace RX.Nyss.Web.Features.Common.Extensions
                     || (area.IncludeUnknownLocation && !dc.DataCollectorLocations.Any()))
                 : dataCollectors;
 
-        public static IQueryable<DataCollector> FilterOnlyDeployed(this IQueryable<DataCollector> dataCollectors) =>
-            dataCollectors.Where(dc => dc.Deployed);
-
         public static IQueryable<DataCollector> FilterByDeployedMode(this IQueryable<DataCollector> dataCollectors, DeployedModeDto? deployedMode) =>
             deployedMode switch
             {
@@ -55,9 +48,6 @@ namespace RX.Nyss.Web.Features.Common.Extensions
 
         public static IQueryable<DataCollector> FilterByProject(this IQueryable<DataCollector> dataCollectors, int projectId) =>
             dataCollectors.Where(dc => dc.Project.Id == projectId);
-
-        public static IQueryable<DataCollector> FilterOnlyNotDeletedBefore(this IQueryable<DataCollector> dataCollectors, DateTimeOffset startDate) =>
-            dataCollectors.Where(dc => dc.DeletedAt == null || dc.DeletedAt > startDate);
 
         public static IQueryable<DataCollector> FilterOnlyNotDeleted(this IQueryable<DataCollector> dataCollectors) =>
             dataCollectors.Where(dc => !dc.DeletedAt.HasValue);

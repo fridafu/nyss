@@ -211,13 +211,6 @@ namespace RX.Nyss.Web.Features.HealthRisks
             return SuccessMessage(ResultKey.HealthRisk.Remove.RemoveSuccess);
         }
 
-        private static bool CodeOrNameWasChanged(HealthRiskRequestDto healthRiskRequestDto, HealthRisk healthRisk) =>
-            healthRiskRequestDto.HealthRiskCode != healthRisk.HealthRiskCode ||
-            healthRiskRequestDto.LanguageContent.Any(lcDto =>
-                healthRisk.LanguageContents.Any(lc =>
-                    lc.ContentLanguage.Id == lcDto.LanguageId && !string.IsNullOrEmpty(lc.Name)) &&
-                lcDto.Name != healthRisk.LanguageContents.Single(lc => lc.ContentLanguage.Id == lcDto.LanguageId).Name);
-
         private async Task<bool> HealthRiskContainsReports(int healthRiskId) =>
             await _nyssContext.ProjectHealthRisks.AnyAsync(phr => phr.HealthRiskId == healthRiskId && phr.Reports.Any(r => !r.IsTraining));
 

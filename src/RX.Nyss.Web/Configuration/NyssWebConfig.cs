@@ -10,8 +10,6 @@ namespace RX.Nyss.Web.Configuration
 
         bool IsProduction { get; }
 
-        string Environment { get; set; }
-
         bool IsDemo { get; }
 
         string AuthorizedApiKeysBlobObjectName { get; set; }
