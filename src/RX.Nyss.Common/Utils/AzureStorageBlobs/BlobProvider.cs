@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
 
-namespace RX.Nyss.Common.Utils;
+namespace RX.Nyss.Common.Utils.AzureStorageBlobs;
 
 public class BlobProvider
 {
-    private readonly string _blobContainerName;
-    private readonly BlobServiceClient _blobServiceClient;
+    private readonly BlobClientProvider _blobClientProvider;
 
-    public BlobProvider(BlobServiceClient blobServiceClient, string blobContainerName)
+    public BlobProvider(BlobClientProvider blobClientProvider)
     {
-        _blobServiceClient = blobServiceClient;
-        _blobContainerName = blobContainerName;
+        _blobClientProvider = blobClientProvider;
     }
 
-    public async Task<string> GetBlobValue(string blobName)
+   public async Task<string> GetBlobValue(string blobName)
     {
-        var blob = await GetBlobClient(blobName);
+        var blob = await _blobClientProvider.GetBlobClient(blobName);
         BlobDownloadResult content = await blob.DownloadContentAsync();
         return content.Content.ToString();
     }
@@ -33,7 +30,7 @@ public class BlobProvider
         await stream.WriteAsync(Encoding.UTF8.GetBytes(value));
         stream.Position = 0;
 
-        var blob = await GetBlobClient(blobName);
+        var blob = await _blobClientProvider.GetBlobClient(blobName);
         await blob.UploadAsync(stream, true);
 
         if (isStringResources)
@@ -46,7 +43,7 @@ public class BlobProvider
 
     public async Task<string> GetBlobUrl(string blobName, TimeSpan lifeTime)
     {
-        var blob = await GetBlobClient(blobName);
+        var blob = await _blobClientProvider.GetBlobClient(blobName);
         if (!await blob.ExistsAsync())
         {
             return null;
@@ -67,30 +64,12 @@ public class BlobProvider
 
     public async Task<BlobProperties> GetBlobProperties(string blobName)
     {
-        var blob = await GetBlobClient(blobName);
+        var blob = await _blobClientProvider.GetBlobClient(blobName);
         if (!await blob.ExistsAsync())
         {
             return null;
         }
 
         return await blob.GetPropertiesAsync();
-    }
-
-    private async Task<BlobClient> GetBlobClient(string blobName)
-    {
-        if (string.IsNullOrWhiteSpace(_blobContainerName) ||
-            string.IsNullOrWhiteSpace(blobName))
-        {
-            throw new ArgumentException("The configuration of blob is invalid.");
-        }
-
-        var blobContainerClient = _blobServiceClient.GetBlobContainerClient(_blobContainerName);
-
-        if (!await blobContainerClient.ExistsAsync())
-        {
-            throw new InvalidOperationException("Blob container does not exist.");
-        }
-
-        return blobContainerClient.GetBlobClient(blobName);
     }
 }

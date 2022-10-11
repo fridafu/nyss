@@ -7,7 +7,7 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Azure;
 using RX.Nyss.Common.Configuration;
-using RX.Nyss.Common.Utils;
+using RX.Nyss.Common.Utils.AzureStorageBlobs;
 
 namespace RX.Nyss.Common.Services;
 
@@ -49,7 +49,7 @@ public class DataBlobService : IDataBlobService
 
     public async Task StorePublicStats(string stats)
     {
-        var blobProvider = new BlobProvider(_dataBlobServiceClient, _config.PublicStatsBlobContainerName);
+        var blobProvider = new BlobProvider(new BlobClientProvider(_dataBlobServiceClient, _config.PublicStatsBlobContainerName));
         await blobProvider.SetBlobValue(_config.PublicStatsBlobObjectName, stats);
     }
 }
