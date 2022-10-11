@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Azure;
-using RX.Nyss.Common.Utils;
+using RX.Nyss.Common.Utils.AzureStorageBlobs;
 using RX.Nyss.Common.Utils.DataContract;
 using RX.Nyss.Common.Utils.Logging;
 using RX.Nyss.Web.Configuration;
@@ -27,7 +27,7 @@ namespace RX.Nyss.Web.Services
             _config = config;
             _loggerAdapter = loggerAdapter;
             var blobServiceClient = azureClientFactory.CreateClient("SmsGatewayBlobClient");
-            _blobProvider = new BlobProvider(blobServiceClient, config.SmsGatewayBlobContainerName);
+            _blobProvider = new BlobProvider(new BlobClientProvider(blobServiceClient, config.SmsGatewayBlobContainerName));
         }
 
         public async Task UpdateApiKeys(string content)
