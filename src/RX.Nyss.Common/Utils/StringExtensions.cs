@@ -10,6 +10,8 @@ public static class StringExtensions
 
     public static string SubstringFromEnd(this string s, int numberOfCharacters)
     {
+        if (s == null)
+            return null;
         var maxNumberOfChars = Math.Min(s.Length, numberOfCharacters);
         return s.Substring(s.Length - maxNumberOfChars, maxNumberOfChars);
     }
